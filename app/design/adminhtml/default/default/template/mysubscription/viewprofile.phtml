@@ -1,0 +1,189 @@
+<?php
+$profile = $this->getProfile();
+$msQuote = $this->getMsquote();
+$shippingAddress = $this->getShippingAddress();
+$billingAddress = $this->getBillingAddress();
+$paymentMethod = $this->getPaymentMethod();
+?>
+<div>
+    <div class="box-left">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo $this->__('Recurring Profile')?></h4>
+            </div>
+            <div class="fieldset">
+                <table cellspacin="0" class="form-list">
+                    <tbody>
+                        <tr>
+                            <td class="label"><label><?php echo $this->__('Recurring Profile Id')?></label></td>
+                            <td class="value"><strong><?php echo $profile->getProfileId()?></strong></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label><?php echo $this->__('Recurring Profile Name')?></label></td>
+                            <td class="value"><strong><?php echo $profile->getName()?></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="box-right">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo $this->__('Recurring Profile Details')?></h4>
+            </div>
+            <div class="fieldset">
+                <table cellspacing="0" class="form-list">
+                    <tbody>
+                    <tr>
+                        <td class="label"><label><?php echo $this->__('Frequency')?></label></td>
+                        <td class="value"><strong><?php echo $profile->getFrequency()?></strong></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label><?php echo $this->__('Start Date')?></label></td>
+                        <td class="value"><strong><?php echo $profile->getStartDate()?></strong></td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label><?php echo $this->__('Status')?></label></td>
+                        <td class="value">
+                            <div id="change_status_block">
+                                <?php echo $this->getChildHtml('adminhtml.mysubscription.viewprofile.status');?>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="box-left">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo $this->__('Billing Address')?></h4>
+            </div>
+            <div class="fieldset">
+                <address>
+                    <?php echo $billingAddress->getFirstname()?> <?php echo $billingAddress->getLastname()?><br />
+                    <?php echo $billingAddress->getCompany()?><br />
+                    <?php echo $billingAddress->getStreet()?><br />
+                    <?php echo $billingAddress->getCity()?>, <?php echo $billingAddress->getRegion()?> <?php echo $billingAddress->getPostcode() ?><br />
+                    <strong>T</strong> | <?php echo $billingAddress->getTelephone();
+                    if($billingAddress->getFax()):?>
+                        <br /><strong>F</strong> | <?php echo $billingAddress->getFax() ?>
+                    <?php endif;?>
+                </address>
+            </div>
+        </div>
+    </div>
+    <div class="box-right">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo $this->__('Shipping Address')?></h4>
+            </div>
+            <div class="fieldset">
+                <address>
+                    <?php echo $shippingAddress->getFirstname()?> <?php echo $shippingAddress->getLastname()?><br />
+                    <?php echo $shippingAddress->getCompany() ?><br />
+                    <?php echo $shippingAddress->getStreet() ?><br />
+                    <?php echo $shippingAddress->getCity()?>, <?php echo $shippingAddress->getRegion()?> <?php echo $shippingAddress->getPostcode()?><br />
+                    <strong>T</strong> | <?php echo $shippingAddress->getTelephone();
+                    if($shippingAddress->getFax()):?>
+                        <br /><strong>F</strong> | <?php echo $shippingAddress->getFax() ?>
+                    <?php endif;?>
+                </address>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="box-left">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo $this->__('Payment Method')?></h4>
+            </div>
+            <div class="fieldset">
+                <?php echo $paymentMethod->getMethod()?>
+            </div>
+        </div>
+    </div>
+    <div class="box-right">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo $this->__('Shipping Method')?></h4>
+            </div>
+            <div class="fieldset">
+                <?php echo $this->escapeHtml($shippingAddress->getShippingMethod())?> <?php echo $this->escapeHtml($shippingAddress->getShippingDescription())?>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-products"><?php echo $this->__('Items Ordered')?></h4>
+        </div>
+    </div>
+    <div class="grid np">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="data order-tables">
+                <colgroup>
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                </colgroup>
+                <thead>
+                <tr class="headings">
+                    <th><?php echo $this->__('Name')?></th>
+                    <th><?php echo $this->__('Price')?></th>
+                    <th class="no-br"><?php echo $this->__('Sku')?></th>
+                    <th><?php echo $this->__('Qty')?></th>
+                    <th class="last"><?php echo $this->__('Subtotal')?></th>
+                </tr>
+                </thead>
+                <tbody class="even">
+                <?php echo $this->getChildHtml('adminhtml.mysubscription.viewprofile.items');?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <br />
+    <div class="box-right entry-edit">
+        <div class="entry-edit-head">
+            <h4><?php echo $this->__('Recurring Cart Totals')?></h4>
+        </div>
+        <div class="order-totals">
+            <table width="100%" cellspacing="0">
+                <colgroup>
+                    <col>
+                    <col width="1">
+                </colgroup>
+                <tfoot>
+                    <?php echo $this->getChildHtml('adminhtml.mysubscription.viewprofile.totals');?>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div>
+    <a id="showlistprofile" href="#"><small>&laquo;</small> <?php echo $this->__('Back')?></a>
+</div>
+<script type="text/javascript">
+    Event.observe('showlistprofile','click', showListProfile);
+    function showListProfile(){
+        var url = $('customer_info_tabs_subscription').readAttribute('href');
+        new Ajax.Request(url ,{
+            onSuccess: function(response){
+                Element.update('customer_info_tabs_subscription_content', response.responseText);
+                Element.setStyle(('customer_info_tabs_subscription_content_view'),{
+                    display: 'none'
+                });
+                Element.setStyle(('customer_info_tabs_subscription_content'),{
+                    display: ''
+                });
+            }
+        });
+    }
+</script>

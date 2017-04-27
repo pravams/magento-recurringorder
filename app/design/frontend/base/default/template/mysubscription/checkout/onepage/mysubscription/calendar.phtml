@@ -1,0 +1,23 @@
+<?php
+$profile = $this->getMsProfile();
+?>
+<label class="required" for="subscription_time"><em>*</em><?php echo $this->__('Recurring Cart Day');?></label>
+<div class="input-box">
+<!--    --><?php //echo $this->__('Subscription Day')?><!--:&nbsp;-->
+    <input style="width:120px" class="input-text no-changes required-entry" type="text" id="subscription_time" name="subscription_time" value="<?php echo ($profile->getProfileId()) ? $profile->getStartDate() : ''?>"/>
+    <img style="cursor: pointer" src="<?php echo $this->getSkinUrl('images/grid-cal.gif')?>" title="<?php echo $this->__('Subscription Day')?>" id="subscription_period_date" alt="<?php echo $this->__('Subscription Day')?>" class="v-middle"/>&nbsp;&nbsp;
+</div>
+<?php
+$format = Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+?>
+<script type="text/javascript">
+    <!--
+    Calendar.setup({
+        inputField : 'subscription_time',
+        ifFormat: '<?php echo $format?>',
+        button: 'subscription_period_date',
+        align: 'Bl',
+        singleClick : true
+    });
+    //-->
+</script>

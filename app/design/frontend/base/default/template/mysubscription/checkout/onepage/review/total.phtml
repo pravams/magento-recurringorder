@@ -1,0 +1,44 @@
+<?php
+/**
+ * Pravams MySubscription Module
+ *
+ * @category    Pravams
+ * @package     Pravams_MySubscription
+ * @copyright   Copyright (c) 2014 Pravams LLC. (http://www.pravams.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+$msQuote = $this->getMsquote();
+if($msQuote->getIsVirtual()){
+    $msAddress = $msQuote->getMsBillingAddress();
+}else{
+    $msAddress = $msQuote->getMsShippingAddress();
+}
+?>
+<tr>
+    <td class="a-right" colspan="3"><?php echo $this->__('Subtotal')?></td>
+    <td class="a-right">
+        <?php echo Mage::helper('mysubscription')->formatPrice($msQuote->getSubtotal())?>
+    </td>
+</tr>
+<?php if(!$msQuote->getIsVirtual()){ ?>
+<tr>
+    <td class="a-right" colspan="3"><?php echo $this->__('Shipping & Handling');?></td>
+    <td class="a-right">
+        <?php echo Mage::helper('mysubscription')->formatPrice($msAddress->getShippingAmount())?>
+    </td>
+</tr>
+<?php }?>
+<tr>
+    <td class="a-right" colspan="3"><?php echo $this->__('Tax')?></td>
+    <td class="a-right">
+        <?php echo Mage::helper('mysubscription')->formatPrice($msAddress->getTaxAmount())?>
+    </td>
+</tr>
+<tr>
+    <td class="a-right" colspan="3"><?php echo $this->__('Grand Total')?></td>
+    <td class="a-right">
+        <?php echo Mage::helper('mysubscription')->formatPrice($msAddress->getGrandTotal())?>
+    </td>
+</tr>

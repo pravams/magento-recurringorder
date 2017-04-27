@@ -1,0 +1,56 @@
+<?php
+/**
+ * Pravams MySubscription Module
+ *
+ * @category    Pravams
+ * @package     Pravams_MySubscription
+ * @copyright   Copyright (c) 2014 Pravams LLC. (http://www.pravams.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div class="cart">
+    <div class="page-title title-buttons">
+        <h1><?php echo $this->__('Recurring Cart')?></h1>
+        <?php if(Mage::helper('mysubscription')->isCartOnlySubscription()){?>
+            <button type="button" title="<?php echo $this->__('Proceed to Checkout')?>" class="button btn-proceed-checkout btn-checkout" onclick="window.location='<?php echo $this->getUrl('checkout/onepage')?>'"><span><span><?php echo $this->__('Proceed to Checkout')?></span></span></button>
+        <?php }?>
+    </div>
+    <form action="<?php echo $this->getUrl('mysubscription/cart/update')?>" method="post">
+        <fieldset>
+            <table id="shopping-mscart-table" class="data-table cart-table">
+                <col width="1" />
+                <col />
+                <col width="1" />
+                <col width="1" />
+                <col width="1" />
+                <col width="1" />
+                <thead>
+                <tr>
+                    <th rowspan="1">&nbsp;</th>
+                    <th rowspan="1"><span class="nobr"><?php echo $this->__('Product Name')?></span></th>
+                    <th class="a-center" colspan="1"><span class="nobr"><?php echo $this->__('Unit Price')?></span></th>
+                    <th class="a-center" rowspan="1"><?php echo $this->__('Qty')?></th>
+                    <th class="a-center" colspan="1"><?php echo $this->__('Subtotal')?></th>
+                    <th class="a-center" rowspan="1">&nbsp;</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td colspan="50" class="a-right">
+                        <?php if($this->getContinueShoppingUrl()):?>
+                            <button type="button" title="<?php echo $this->__('Continue Shopping')?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><?php echo $this->__('Continue Shipping')?></span></span></button>
+                        <?php endif;?>
+                        <button type="submit" name="update_mscart_action" value="update_msqty" title="<?php echo $this->__('Update MySubscription Cart')?>" class="button btn-update"><span><span><?php echo $this->__('Update MySubscription Cart')?></span></span></button>
+<!--                        <button type="submit" name="update_mscart_action" value="empty_cart" title="--><?php //echo $this->__('Clear MySubscription Cart')?><!--" class="button btn-empty" id="empty_mscart_button"><span><span>--><?php //echo $this->__('Clear MySubscription Cart')?><!--</span></span></button>-->
+                    </td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <?php echo $this->getChildHtml('mysubscription.cart.item');?>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('shopping-mscart-table')</script>
+        </fieldset>
+    </form>
+</div>
+<br />

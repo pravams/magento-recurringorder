@@ -1,0 +1,14 @@
+<br /><br />
+<div>
+    <button type="button" title="<?php echo $this->__('Add to Subscribe')?>" id="product-addtosubscribe-button" class="button btn-cart" onclick="submitAddtoSubscribe()">
+        <span><span><?php echo $this->__('Add to Subscribe');?></span></span>
+    </button>
+</div>
+<script type="text/javascript">
+    function submitAddtoSubscribe(){
+        var currentAction = $('product_addtocart_form').readAttribute('action');
+        var newAction = currentAction.replace('checkout','mysubscription');
+        $('product_addtocart_form').writeAttribute('action', newAction);
+        $('product_addtocart_form').submit();
+    }
+</script>

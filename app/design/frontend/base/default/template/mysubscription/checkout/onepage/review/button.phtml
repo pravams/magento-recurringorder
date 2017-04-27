@@ -1,0 +1,18 @@
+<?php
+/**
+ * Pravams MySubscription Module
+ *
+ * @category    Pravams
+ * @package     Pravams_MySubscription
+ * @copyright   Copyright (c) 2014 Pravams LLC. (http://www.pravams.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div id="checkout-ms-review-submit">
+    <div class="buttons-set" id="reviews-buttons-container">
+        <button id="msreview-buttons" type="button" title="<?php echo $this->__('Save Recurring Profile')?>" class="button btn-checkout" onclick="mysubscriptionSubmit()"><span><span><?php echo $this->__('Save Recurring Profile')?></span></span></button>
+        <span class="please-wait" id="ms-review-please-wait" style="display:none">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif');?>" alt="<?php echo $this->__('Submitting profile information...')?>" title="<?php echo $this->__('Submitting profile information...')?>" class="v-middle"/> <?php echo $this->__('Submitting profile information...')?>
+        </span>
+    </div>
+</div>

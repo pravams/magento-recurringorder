@@ -1,0 +1,41 @@
+<?php
+/**
+ * Pravams MySubscription Module
+ *
+ * @category    Pravams
+ * @package     Pravams_MySubscription
+ * @copyright   Copyright (c) 2014 Pravams LLC. (http://www.pravams.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+$msItemsCollection =  Mage::helper('mysubscription')->getMscartItems();
+foreach($msItemsCollection as $_msItem){ ?>
+    <?php
+    $_item = Mage::getModel('catalog/product')->load($_msItem->getProductId());
+    ?>
+    <tr>
+        <td>
+            <a href="<?php echo $_item->getProductUrl()?>" title="<?php echo $_msItem->getName()?>" class="product-image"><img src="<?php echo Mage::helper('catalog/image')->init($_item, 'thumbnail')->resize(75)?>" width="75" height="75" alt="<?php echo $_msItem->getName()?>"/></a>
+        </td>
+        <td>
+            <h2 class="product-name">
+                <a href="<?php echo $_item->getProductUrl()?>"><?php echo $this->escapeHtml($_msItem->getName())?></a>
+            </h2>
+        </td>
+        <td class="a-right">
+            <span class="cart-price"><?php echo Mage::helper('mysubscription')->formatPrice($_msItem->getPrice())?></span>
+        </td>
+        <td class="a-center">
+            <input name="mscart[<?php echo $_msItem->getItemId() ?>][qty]" value="<?php echo Mage::helper('mysubscription')->formatQty($_msItem->getQty())?>" size="4" title="<?php echo $this->__('Qty')?>" class="input-text qty" max-length="12"/>
+        </td>
+        <td class="a-right">
+            <span class="cart-price"><?php echo Mage::helper('mysubscription')->formatPrice($_msItem->getRowTotal())?></span>
+        </td>
+        <td class="a-center">
+            <a href="<?php echo $this->getUrl('mysubscription/cart/delete', array('id'=> $_msItem->getItemId()))?>" title="<?php echo $this->__('Remove item')?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove items')?></a>
+        </td>
+    </tr>
+<?php
+}
+?>

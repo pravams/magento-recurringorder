@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Pravams MySubscription Module
+ *
+ * @category    Pravams
+ * @package     Pravams_MySubscription
+ * @copyright   Copyright (c) 2014 Pravams LLC. (http://www.pravams.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <mysubscription translate="title">
+                                        <title>My Subscription</title>
+                                        <sort_order>60</sort_order>
+                                    </mysubscription>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

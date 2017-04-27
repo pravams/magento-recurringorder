@@ -1,0 +1,31 @@
+<?php 
+if($this->getCheckout()->getStepData('mysubscription', 'complete')){
+?>
+<dt class="complete">
+    <?php echo $this->__('Recurring Cart')?><span class="changelink"> <span class="separator">|</span>
+        <a href="#mysubscription" onclick="changeMsProgress()"><?php echo $this->__('Change')?></a>
+    </span>
+</dt>
+<dd class="complete">
+    <div>
+        <?php $profile = $this->getMsProfile(); ?>
+        <div><?php echo $profile->getName();?></div>
+        <div><?php echo $profile->getFrequency();?></div>
+    </div>
+</dd>
+<?php
+}else{
+?>
+<dt>
+    <?php echo $this->__('Recurring Cart');?>
+</dt>
+<?php
+}
+?>
+<script type="text/javascript">
+    function changeMsProgress(){
+        var msHtml = "<dt><?php echo $this->__('Recurring Cart');?></dt>";
+        $('mysubscription-progress-checkout').update(msHtml);
+        checkout.changeSection('opc-mysubscription'); return false;
+    }
+</script>

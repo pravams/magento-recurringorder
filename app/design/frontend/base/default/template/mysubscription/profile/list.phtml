@@ -1,0 +1,47 @@
+<?php
+$profiles = $this->getProfiles();
+
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Recurring Profiles');?></h1>
+</div>
+<?php if($profiles->count()){?>
+    <table class="data-table" id="mysubscription-profiles-table">
+        <col />
+        <col width="1"/>
+        <col width="1"/>
+        <col width="1"/>
+        <col width="65" />
+        <col width="1"/>
+        <col width="1"/>
+        <thead>
+        <tr>
+            <th><?php echo $this->__('Name')?></th>
+            <th><?php echo $this->__('Frequency')?></th>
+            <th><?php echo $this->__('Start Date')?></th>
+            <th><?php echo $this->__('Total')?></th>
+            <th><?php echo $this->__('Status')?></th>
+            <th><?php echo $this->__('Edit')?></th>
+            <th><?php echo $this->__('View')?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($profiles as $_profile){?>
+            <?php if($_profile->hasItems()){ ?>
+            <tr>
+                <td><?php echo $_profile->getName()?></td>
+                <td><?php echo $_profile->getFrequency()?></td>
+                <td><span class="nobr"><?php echo $_profile->getStartDate()?></span></td>
+                <td><?php echo Mage::helper('mysubscription')->formatPrice($_profile->getGrandTotal())?></td>
+                <td class="a-left"><?php echo $_profile->getStatus()?></td>
+                <td class="a-center"><a href="<?php echo $this->getUrl('mysubscription/index/edit',array('profile_id' => $_profile->getProfileId()))?>">edit</a></td>
+                <td class="a-center"><a href="<?php echo $this->getUrl('mysubscription/index/view',array('profile_id' => $_profile->getProfileId()))?>">view</a></td>
+            </tr>
+            <?php }?>
+        <?php }?>
+        </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('mysubscription-profiles-table')</script>
+<?php } else{?>
+    <p><?php echo $this->__('You do not have any Recurring Profile Saved');?></p>
+<?php }?>

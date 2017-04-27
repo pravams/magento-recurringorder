@@ -1,0 +1,15 @@
+<?php
+$msQuote = $this->getMsquote();
+$items = $msQuote->getItemsCollection();
+?>
+<?php $_count = $items->count(); ?>
+<?php $_index = 0; ?>
+<?php foreach($items as $_item):?>
+    <tr<?php echo ($_index++ > $_count ? ' class="last"' : '' )?>>
+        <td><?php echo $this->escapeHtml($_item->getName()) ?></td>
+        <td class="a-right"><?php echo Mage::helper('mysubscription')->formatPrice($_item->getPrice()*1)?></td>
+        <td class="a-center"><?php echo $_item->getSku()?></td>
+        <td class="a-center"><?php echo Mage::helper('mysubscription')->formatQty($_item->getQty())?></td>
+        <td class="a-right"><?php echo Mage::helper('mysubscription')->formatPrice($_item->getRowTotal())?></td>
+    </tr>
+<?php endforeach?>

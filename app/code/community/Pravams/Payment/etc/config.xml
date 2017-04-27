@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Pravams Payment Module
+ *
+ * @category    Pravams
+ * @package     Pravams_Payment
+ * @copyright   Copyright (c) 2014 Pravams LLC. (http://www.pravams.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Pravams_Payment>
+            <version>0.1.0</version>
+        </Pravams_Payment>
+    </modules>
+    <global>
+        <models>
+            <pravams_payment>
+                <class>Pravams_Payment_Model</class>
+            </pravams_payment>
+            <payment>
+                <rewrite>
+                    <method_checkmo>Pravams_Payment_Model_Method_Checkmo</method_checkmo>
+                    <method_free>Pravams_Payment_Model_Method_Free</method_free>
+                    <method_banktransfer>Pravams_Payment_Model_Method_Banktransfer</method_banktransfer>
+                    <method_cashondelivery>Pravams_Payment_Model_Method_Cashondelivery</method_cashondelivery>
+                    <method_purchaseorder>Pravams_Payment_Model_Method_Purchaseorder</method_purchaseorder>
+                    <method_ccsave>Pravams_Payment_Model_Method_Ccsave</method_ccsave>
+                </rewrite>
+            </payment>
+        </models>
+        <helpers>
+            <pravams_payment>
+                <class>Pravams_Payment_Helper</class>
+            </pravams_payment>
+        </helpers>
+    </global>
+</config>

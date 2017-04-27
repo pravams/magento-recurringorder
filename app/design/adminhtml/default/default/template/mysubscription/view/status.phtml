@@ -1,0 +1,34 @@
+<?php
+$msQuote = $this->getMsquote();
+$profile = $this->getProfile();
+?>
+<strong><?php echo $profile->getStatus($msQuote->getMsorderState())?></strong>
+<?php
+if($msQuote->getMsorderState() == Pravams_MySubscription_Model_Msquote::ACTIVE){
+    ?>
+    &nbsp;<a href="#" id="change_status" title="<?php echo $this->getUrl('*/index/changeStatus', array('profile_id' => $profile->getProfileId(), 'status' => Pravams_MySubscription_Model_Msquote::INACTIVE))?>">
+        <?php echo $this->__('Pause Profile');?>
+    </a>
+<?php
+}else{
+    ?>
+    &nbsp;<a href="#" id="change_status" title="<?php echo $this->getUrl('*/index/changeStatus', array('profile_id' => $profile->getProfileId(), 'status' => Pravams_MySubscription_Model_Msquote::ACTIVE))?>">
+        <?php echo $this->__('Start Profile');?>
+    </a>
+<?php
+}
+?>
+<script type="text/javascript">
+    /*
+     * Change Status of the profile
+     * */
+    Event.observe('change_status', 'click', changeProfileSatus);
+    function changeProfileSatus(){
+        var url = this.readAttribute('title');
+        new Ajax.Request(url ,{
+            onSuccess: function(response){
+                Element.update('change_status_block', response.responseText);
+            }
+        });
+    }
+</script>

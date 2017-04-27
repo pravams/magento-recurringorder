@@ -1,0 +1,100 @@
+<?php
+$profile = $this->getMsProfile();
+$options = Mage::helper('mysubscription')->getMsFrequency();
+?>
+<form id="co-mysubscription-form" action="<?php echo $this->getUrl('mysubscription/cart/saveProfile');?>">
+    <div>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label class="required" for="subscription_name"><em>*</em><?php echo $this->__('Subscription Name');?></label>
+                    <div class="input-box">
+                        <input type="text" class="input-text required-entry" name="subscription_name" id="subscription_name" title="<?php echo $this->__('Subscription Name')?>" value="<?php echo ($profile->getProfileId()) ? $profile->getName() : ''?>"/>
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <?php echo $this->getChildHtml('mysubscription.calendar');?>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label class="required" for="subscription_frequency"><em>*</em><?php echo $this->__('Subscription Frequency');?></label>
+                    <div class="input-box">
+                        <select name="subscription_frequency" class="input-text required-entry" id="subscription_frequency" title="<?php echo $this->__('Subscription Frequency')?>">
+                            <option value="">Select</option>
+                            <?php foreach($options as $key => $_option){?>
+                                <option value="<?php echo $key?>" <?php echo ($_option == $profile->getFrequency()) ? "selected='selected'" : ''?>><?php echo $_option?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="buttons-set" id="mysubscription-buttons-container">
+            <p class="required"><?php echo $this->__('* Required Fields')?></p>
+            <button type="button" title="<?php echo $this->__('Continue');?>" class="button" onclick="subscriptionSave()"><span><span><?php echo $this->__('Continue')?></span></span></button>
+            <span class="please-wait" id="mysubscription-please-wait" style="display:none">
+                <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading next step...') ?>" title="<?php echo $this->__('Loading next step...') ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
+            </span>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function subscriptionSave(){
+
+        if(!mysubscriptionForm.validator.validate()){
+            return false;
+        }
+
+        var subscriptionName = $('subscription_name').value;
+        var subscriptionTime = $('subscription_time').value;
+        var subscriptionFrequency = $('subscription_frequency').value;
+
+        new Ajax.Request('<?php echo $this->getUrl('mysubscription/cart/saveProfile');?>',{
+            method: 'get',
+            parameters: {subscription_name: subscriptionName, subscription_time: subscriptionTime, subscription_frequency: subscriptionFrequency},
+            onLoading: function(){
+                $('mysubscription-please-wait').setStyle({display:''});
+                $('mysubscription-buttons-container').addClassName('disabled');
+            },
+            onSuccess: function(transport, json){
+                checkout.changeSection('billing');
+                
+                /* reload the progress block */
+                reloadMsProgressBlock();
+
+                $('mysubscription-buttons-container').removeClassName('disabled');
+                $('mysubscription-please-wait').setStyle({display:'none'});
+            }
+        });
+    }
+    
+    function reloadMsProgressBlock(){
+        new Ajax.Request('<?php echo $this->getUrl('checkout/onepage/progress');?>',{
+            method: 'get',
+            parameters: {prevStep: 'mysubscription'},
+            onSuccess: function(transport, json){
+                transport.responseText;
+                $('mysubscription-progress-checkout').update(transport.responseText);
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    var mysubscriptionForm = new VarienForm('co-mysubscription-form', true);
+    // ]]
+</script>
+<script type="text/javascript">
+    function mysubscriptionSubmit(){
+        $('msreview-buttons').setStyle({
+            display: 'none'
+        });
+        $('ms-review-please-wait').setStyle({
+            display: ''
+        });
+        window.location='<?php echo $this->getUrl('mysubscription/index/success');?>';
+    }
+</script>

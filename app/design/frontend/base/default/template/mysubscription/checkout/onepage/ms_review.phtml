@@ -1,0 +1,40 @@
+<?php
+/**
+ * Pravams MySubscription Module
+ *
+ * @category    Pravams
+ * @package     Pravams_MySubscription
+ * @copyright   Copyright (c) 2014 Pravams LLC. (http://www.pravams.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div id="checkout-ms-review-table-wrapper">
+    <table class="data-table" id="checkout-ms-review-table">
+        <col />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <thead>
+            <tr>
+                <th rowspan="1"><?php echo $this->__('Recurring Product Name')?></th>
+                <th rowspan="1"><?php echo $this->__('Price')?></th>
+                <th rowspan="1"><?php echo $this->__('Qty')?></th>
+                <th rowspan="1"><?php echo $this->__('Subtotal')?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php echo $this->getChildHtml('mysubscription.checkout.review.item');?>
+        </tbody>
+        <tfoot>
+            <?php echo $this->getChildHtml('mysubscription.checkout.review.total')?>
+        </tfoot>
+    </table>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    decorateTable('checkout-ms-review-table');
+    truncateOptions();
+    //]]>
+</script>
+<?php echo $this->getChildHtml('mysubscription.checkout.review.button'); ?>
+<?php echo $this->getChildHtml('mysubscription.checkout.review.message'); ?>
